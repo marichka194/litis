@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block leftside %}
+<div class="span3">
+    <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+            {% for category in categories %}
+                <li class="nav-header">{{ category.name }}</li>
+                {% for subcat in category.subcategory_set.all %}
+                    <li {% if subcat == active_category %} class="active" {% endif %}>
+                        <a href="/subcat/{{subcat.id }}">{{ subcat.name }}</a>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block companies %}
+    {% for company in companies %}
+        <div class="row well">
+
+                    <div class="span3">
+                        {% if company.image %}
+                             <div class="thumbnail" style="width: 200px;">
+                                 <img src="{{ company.image.url }}">
+                             </div>
+                        {% else %}
+                             <div class="thumbnail" style="height: 120px; width: 200px;">
+                                <img src="{{ MEDIA_URL }}/logo/nophoto.png">
+                             </div>
+                        {% endif %}
+                    </div>
+                    <div class="span6">
+                        <h2>{{ company.name }}</h2>
+                        <p> <h5>{{ company.address }} </h5>
+
+                        <p>{{ company.description|truncatewords:10|safe }}</p>
+                        <p><a class="btn" href="/company/{{ company.id }}">Подробнее...</a></p>
+                    </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}

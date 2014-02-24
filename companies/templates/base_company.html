@@ -1,0 +1,98 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Litis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script type="text/javascript">
+        //<![CDATA[
+        window.__CF=window.__CF||{};window.__CF.AJS={"ga_key":{"ua":"UA-12784007-23","ga_bs":"2"}};
+        //]]>
+    </script>
+    <script type="text/javascript">
+        //<![CDATA[
+        try{if (!window.CloudFlare) { var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/acv=4125811108/"},atok:"0aef5c03536e97c2265896ecd4fd603b",petok:"df6ace95970830fb50e3177ee5f1a6df-1385478309-1800",zone:"bootstrap-ru.com",rocket:"a",apps:{"ga_key":{"ua":"UA-12784007-23","ga_bs":"2"}}}];document.write('<script type="text/javascript" src="//ajax.cloudflare.com/cdn-cgi/nexp/acv=616370821/cloudflare.min.js"><'+'\/script>')}}catch(e){};
+        //]]>
+    </script>
+    <link href="{{ STATIC_PREFIX }}bootstrap/css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">body{padding-top:60px;padding-bottom:40px;}.sidebar-nav{padding:9px 0;}</style>
+    <link href="{{ STATIC_PREFIX }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-12784007-23']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+        (function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+        /* ]]> */
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">Project name</a>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                    <input type="text" class="navbar-inverse search-query" placeholder="Search">
+                    </p>
+                    <ul class="nav">
+                    <li class="active"><a href="#">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            {% block leftside %}
+            {% endblock %}
+            <div class="row span9">
+                {% block company_block %}
+                {% endblock %}
+            </div>
+        </div>
+    <hr>
+    <footer>
+    <p>&copy; Company 2012</p>
+    </footer>
+    </div>
+
+
+    <script data-rocketsrc="../assets/js/jquery.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-transition.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-alert.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-modal.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-dropdown.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-scrollspy.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-tab.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-tooltip.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-popover.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-button.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-collapse.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-carousel.js" type="text/rocketscript"></script>
+    <script data-rocketsrc="../assets/js/bootstrap-typeahead.js" type="text/rocketscript"></script>
+</body>
+</html>

@@ -22,6 +22,7 @@ class SubCategory(models.Model):
 
 class Company(models.Model):
     name = models.CharField(max_length=180, verbose_name=u"Имя компании")
+    meta_words = models.TextField(verbose_name=u"Ключевые слова", default=" ", blank=True)
     address = models.TextField(verbose_name=u"Адрес компании")
     description = models.TextField(verbose_name=u"Описание")
     rating = models.IntegerField(verbose_name=u"Рейтинг", default=0)

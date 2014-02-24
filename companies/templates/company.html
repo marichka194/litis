@@ -1,0 +1,46 @@
+{% extends 'base_company.html' %}
+
+{% block leftside %}
+<div class="span3">
+    <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+            {% for category in categories %}
+                <li class="nav-header">{{ category.name }}</li>
+                {% for subcat in category.subcategory_set.all %}
+                    <li {% if subcat == active_category %} class="active" {% endif %}>
+                        <a href="/subcat/{{subcat.id }}">{{ subcat.name }}</a>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block company_block %}
+        <div class="row-fluid">
+
+                <div class="span3">
+                    {% if company.image %}
+                         <div class="thumbnail" style="margin-right: 20px; margin-bottom: 20px;">
+                             <img src="{{ company.image.url }}">
+                         </div>
+                    {% else %}
+                         <div class="thumbnail" style="height: 120px; width: 200px;">
+                                <img src="{{ MEDIA_URL }}/logo/nophoto.png">
+                         </div>
+                    {% endif %}
+                </div>
+                <div class="span9">
+                    <div class="page-header">
+                        <h1>{{ company.name }}
+                    <p> <small>{{ company.address }}</small> </p> </h1>
+                </div>
+            </div>
+            <div style="margin: 50px;">
+                <p>{{ company.description|safe }}</p>
+                <p> {{ company.on_map|safe }}</p>
+             </div>
+        </div>
+{% endblock %}
