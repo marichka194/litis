@@ -11,12 +11,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'base.db',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'artur24_litis39',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'USER': 'artur24_litis39',
+        'PASSWORD': 'csWHTkkpgU',
+        'HOST': 'postgresql2.locum.ru',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
 }
@@ -51,7 +51,8 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = "/home/hosting_artur24/projects/litis/"
+
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -87,7 +88,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'litis.urls'
+ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'litis.wsgi.application'
@@ -102,6 +103,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     # Uncomment the next line to enable the admin:
     'suit',
     'django.contrib.admin',
@@ -110,7 +112,12 @@ INSTALLED_APPS = (
     'companies',
     'south',
     'suit_ckeditor',
+    'bootstrap_toolkit',
 )
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Litis',
+}
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
@@ -147,3 +154,13 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
   'django.core.context_processors.request',
 )
+
+EMAIL_HOST = 'mail.locum.ru'
+EMAIL_HOST_USER = 'admin@litis.com.ua'
+EMAIL_HOST_PASSWORD = 'admin123hp'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

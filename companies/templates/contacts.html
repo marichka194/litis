@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block leftside %}
+    <div class="span3 leftside hidden-phone">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                {% for category in categories %}
+                    <li class="nav-header row" style="font-size: x-large; line-height: 0px;">
+                        {% if category == categories|first %}
+                            <img src="{{ STATIC_PREFIX }}goods.png" width="25px" style="margin-right: 5%;"/>
+                        {% else %}
+                            <img src="{{ STATIC_PREFIX }}other.png" width="25px" style="margin-right: 5%;"/>
+                        {% endif %}
+                        {{ category.name }}</li>
+                    {% for subcat in category.subcategory_set.all %}
+                        <li {% if subcat == active_category %} class="active" {% endif %}>
+                            <a href="{% url 'subcat_list' subcat.slug %}">{{ subcat.name }}</a>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{% url 'add_company' %}" class="btn btn-large btn-primary" href="">
+            Добавить компанию в каталог Litis
+        </a>
+    </div>
+{% endblock %}
+
+{% block contacts %}
+    <div class="span9">
+        <p style="font-family: Georgia; font-size: 28px; margin-top: 20px; margin-bottom: 20px;">
+            Координаторы <b style="color: #0088cc; line-height: 1.2;">Litis Project</b>
+        </p>
+        <b><hr></b>
+        <div class="row" style="margin-top: 20px;">
+            <div class="span3">
+                <img src="{{ STATIC_PREFIX }}contacts_arthur.png">
+            </div>
+            <div class="span5">
+                <p style="font-family: Georgia; font-size: 26px; margin-top: 5px; line-height: 1.2;"><b>Rigus Arthur </b>/ Рыгус Артур</p>
+                <p style="font-family: Georgia; font-size: 23px; color: #0088cc; margin-top: 20px; margin-bottom: 20px; line-height: 1.2;">
+                    <i>«Цель ничто без миссии»</i>
+                </p>
+                <p style="font-family: Georgia; font-size: 19px;">главный координатор проекта</p>
+                <!--<p style="font-family: Georgia; font-size: 19px;">
+                    Тел.: <span style="font-family: Arial; font-size: 16px; color: #0088cc;">(063) 278 33 16, (097) 521 33 81</span><br>
+                </p>-->
+                <p style="font-family: Georgia; font-size: 19px;">E-mail: litisproject@gmail.com</p>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px;">
+            <div class="span2">
+                <img src="{{ STATIC_PREFIX }}contacts_natasha.png">
+            </div>
+            <div class="span6">
+                <p style="font-family: Georgia; font-size: 26px; margin-top: 5px; line-height: 1.2;"><b>Burdina Natalia </b>/ Бурдина Наталия</p>
+                <p style="font-family: Georgia; font-size: 23px; color: #0088cc; margin-top: 20px; margin-bottom: 20px; line-height: 1.2;">
+                    <i>«Кризис – это и возможность в том числе»</i>
+                </p>
+                <p style="font-family: Georgia; font-size: 19px;">Litis-менеджер</p>
+                <p style="font-family: Georgia; font-size: 19px;">
+                    Тел.: <span style="font-family: Arial; font-size: 16px; color: #0088cc;">(066) 929 52 60, (068) 795 83 50</span><br>
+                </p>
+                <p style="font-family: Georgia; font-size: 19px;">E-mail: litisproject@gmail.com</p>
+            </div>
+        </div>
+        <!--
+        <div class="row" style="margin-top: 30px;">
+            <div class="span2">
+                <img src="{{ STATIC_PREFIX }}contacts_marina.png">
+            </div>
+            <div class="span6">
+                <p style="font-family: Georgia; font-size: 26px; margin-top: 5px; line-height: 1.2;"><b>Titievskaya Marina</b> / Титиевская Марина</p>
+                <p style="font-family: Georgia; font-size: 23px; color: #0088cc; margin-top: 20px; margin-bottom: 20px; line-height: 1.2;">
+                    <i>"Перестать стремиться к совершенству - все равно, что умереть"</i>
+                </p>
+                <p style="font-family: Georgia; font-size: 19px;">Litis-менеджер</p>
+                <p style="font-family: Georgia; font-size: 19px;">
+                    Тел.: <span style="font-family: Arial; font-size: 16px; color: #0088cc;">(050) 875 19 42, (093) 729 93 28</span><br>
+                </p>
+                <p style="font-family: Georgia; font-size: 19px;">E-mail: litisproject@gmail.com</p>
+            </div>
+        </div>
+        -->
+        <div class="row" style="margin-top: 30px;">
+            <div class="span2">
+                <img src="{{ STATIC_PREFIX }}contacts_masha.png">
+            </div>
+            <div class="span6">
+                <p style="font-family: Georgia; font-size: 26px; margin-top: 5px; line-height: 1.2;"><b>Zotik Maria </b>/ Зотик Мария</p>
+                <p style="font-family: Georgia; font-size: 23px; color: #0088cc; margin-top: 20px; margin-bottom: 20px; line-height: 1.2;">
+                    <i>«Делай то, что любишь.  Люби то, что делаешь»</i>
+                </p>
+                <p style="font-family: Georgia; font-size: 19px;">координатор технической поддержки проекта</p>
+                <p style="font-family: Georgia; font-size: 19px;">E-mail: litisproject@gmail.com</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

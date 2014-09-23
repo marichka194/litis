@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block leftside %}
+    <div class="span3 leftside hidden-phone">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                {% for category in categories %}
+                    <li class="nav-header row" style="font-size: x-large; line-height: 0px;">
+                        {% if category == categories|first %}
+                            <img src="{{ STATIC_PREFIX }}goods.png" width="25px" style="margin-right: 5%;"/>
+                        {% else %}
+                            <img src="{{ STATIC_PREFIX }}other.png" width="25px" style="margin-right: 5%;"/>
+                        {% endif %}
+                        {{ category.name }}</li>
+                    {% for subcat in category.subcategory_set.all %}
+                        <li {% if subcat == active_category %} class="active" {% endif %}>
+                            <a href="{% url 'subcat_list' subcat.slug %}">{{ subcat.name }}</a>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+
+            </ul>
+        </div>
+        <a href="{% url 'add_company' %}" class="btn btn-large btn-primary" href="">
+            Добавить компанию в каталог Litis
+        </a>
+    </div>
+{% endblock %}
+
+{% block about_us %}
+    <div class="row">
+        <div class="span2 visible-desktop">
+            <img src="{{ STATIC_PREFIX }}about_us2.png" >
+        </div>
+        <div class="span6" style="margin-top: 30px; text-align: justify;">
+            <span class="alert-info" style="font-size: 26px; background-color: white;">LITIS</span>
+            <span style="font-size: 16px;"> – это украинская информационная интернет-площадка,
+            которая позволяет потребителям выбрать из огромного количества предложений именно то,
+            что нужно Вам, а компаниям - разместить информацию о предоставляемых товарах и услугах. </span>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px; margin-left: 20px;">
+        <div class="span1 visible-desktop">
+            <div id="blue_parallelogram1" >
+                <div id="blue_parallelogram2" style="margin-left: 25px; ">
+                    <div id="blue_parallelogram3" style="margin-left: 25px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6" style="margin-left: 10%; margin-top: 0px; font-size: 16px; text-align: justify;">
+            <p><span class="alert-info" style="font-size: 26px; background-color: white;">LITIS для покупателя</span></p>
+             – это информационная площадка, на которой есть подробное
+            описание украинских компаний, предоставляющих товары и услуги.
+            Время - деньги. Каждый человек в современном мире знаком с этим утверждением.
+            Каждый успешный человек в полной мере осознает его ценность.
+            LITIS - это не только способ сэкономить время на выборе подходящего
+            Вам предложения, но это также возможность выбрать лучшее.
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px; margin-left: 20px;">
+        <div class="span1 visible-desktop">
+            <div id="blue_parallelogram1" >
+                <div id="blue_parallelogram2" style="margin-left: 25px;">
+                    <div id="blue_parallelogram3" style="margin-left: 25px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6" style="margin-left: 10%; margin-top: 20px; font-size: 16px; text-align: justify;">
+            <p><span class="alert-info" style="font-size: 26px; background-color: white;">LITIS для компании</span></p>
+             – это возможность дополнительной рекламы ваших товаров и предоставляемых услуг,
+            а соответственно, увеличение объемов продаж и количества клиентов.
+            Если Вы заинтересованы в развитии вашего предприятия, связаться с нами можно <a href="{% url 'contacts' %}"> так</a>.
+        </div>
+    </div>
+{% endblock %}

@@ -1,46 +1,172 @@
-{% extends 'base_company.html' %}
+{% extends 'base.html' %}
+
+{% block meta_content %}
+    <meta name="keywords" content="litic литис літіс Харьков предприятия фирмы {{ company.meta_words }}">
+{% endblock %}
 
 {% block leftside %}
-<div class="span3">
-    <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-            {% for category in categories %}
-                <li class="nav-header">{{ category.name }}</li>
-                {% for subcat in category.subcategory_set.all %}
-                    <li {% if subcat == active_category %} class="active" {% endif %}>
-                        <a href="/subcat/{{subcat.id }}">{{ subcat.name }}</a>
+    <div class="span3 leftside hidden-phone">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                {% for category in categories %}
+                    <li class="nav-header row" style="font-size: x-large; line-height: 0px;">
+                        {% if category == categories|first %}
+                            <img src="{{ STATIC_PREFIX }}goods.png" width="25px" style="margin-right: 5%;"/>
+                        {% else %}
+                            <img src="{{ STATIC_PREFIX }}other.png" width="25px" style="margin-right: 5%;"/>
+                        {% endif %}
+                        {{ category.name }}
                     </li>
+                    {% for subcat in category.subcategory_set.all %}
+                        <li {% if subcat == active_category %} class="active" {% endif %}>
+                            <a href="{% url 'subcat_list' subcat.slug %}">{{ subcat.name }}</a>
+                        </li>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-
-        </ul>
+            </ul>
+        </div>
+        <a href="{% url 'add_company' %}" class="btn btn-large btn-primary" href="">
+            Добавить компанию в каталог Litis
+        </a>
     </div>
-</div>
 {% endblock %}
 
 {% block company_block %}
-        <div class="row-fluid">
-
-                <div class="span3">
-                    {% if company.image %}
-                         <div class="thumbnail" style="margin-right: 20px; margin-bottom: 20px;">
-                             <img src="{{ company.image.url }}">
-                         </div>
-                    {% else %}
-                         <div class="thumbnail" style="height: 120px; width: 200px;">
-                                <img src="{{ MEDIA_URL }}/logo/nophoto.png">
-                         </div>
-                    {% endif %}
-                </div>
-                <div class="span9">
-                    <div class="page-header">
-                        <h1>{{ company.name }}
-                    <p> <small>{{ company.address }}</small> </p> </h1>
-                </div>
+    <div class="row">
+        <div class="span9">
+            <div class="page-header" style="margin-bottom: 5px;">
+                {% if company.image %}
+                    <div  style="margin-right: 20px; margin-bottom: 20px; float: left;">
+                        <img src="{{ company.image.url }}" width="220px">
+                    </div>
+                {% else %}
+                    <div class="thumbnail"  style="height: 120px; width: 200px;">
+                        <img src="{{ MEDIA_URL }}/logo/nophoto.png">
+                    </div>
+                {% endif %}
+                <div><h1>{{ company.name }}</h1></div>
             </div>
+            <div id="rating">
+                {% if company.rating < 0.33 %}
+                <input name="vote1" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 1 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 0.33 and company.rating < 0.66 %}
+                <input name="vote1" type="image" role="submit" src="{{ STATIC_PREFIX }}rating_half.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 1 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 0.66 %}
+                <input name="vote1" type="image" role="submit" src="{{ STATIC_PREFIX }}rating1.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 1 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+
+                {% if company.rating < 1.33 %}
+                <input name="vote2" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 2 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 1.33 and company.rating < 1.66 %}
+                <input name="vote2" type="image" role="submit" src="{{ STATIC_PREFIX }}rating_half.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 2 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 1.66 %}
+                <input name="vote2" type="image" role="submit" src="{{ STATIC_PREFIX }}rating1.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 2 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+
+                {% if company.rating < 2.33 %}
+                <input name="vote3" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 3 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 2.33 and company.rating < 2.66 %}
+                <input name="vote3" type="image" role="submit" src="{{ STATIC_PREFIX }}rating_half.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 3 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 2.66 %}
+                <input name="vote3" type="image" role="submit" src="{{ STATIC_PREFIX }}rating1.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 3 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+
+                {% if company.rating < 3.33 %}
+                <input name="vote4" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 4 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 3.33 and company.rating < 3.66 %}
+                <input name="vote4" type="image" role="submit" src="{{ STATIC_PREFIX }}rating_half.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 4 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 3.66 %}
+                <input name="vote4" type="image" role="submit" src="{{ STATIC_PREFIX }}rating1.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 4 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+
+                {% if company.rating < 4.33 %}
+                <input name="vote5" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 5 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 4.33 and company.rating < 4.66 %}
+                <input name="vote5" type="image" role="submit" src="{{ STATIC_PREFIX }}rating_half.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 5 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+                {% if company.rating >= 4.66 %}
+                <input name="vote5" type="image" role="submit" src="{{ STATIC_PREFIX }}rating1.png" style="margin-right:-2px;" onclick="$.ajax({
+                        url: '{% url 'voting' company.slug 5 %}',
+                        success: function(){if('{{ has_voted }}'=='true'){$('#has_voted').css('display','inline');}else{$('#rating').load('{% url 'company' company.slug %} #rating');}}
+                        });"/>
+                {% endif %}
+            <!--
+                <input name="vote2" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin:-2px;"/>
+            <input name="vote3" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin:-2px;"/>
+            <input name="vote4" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin:-2px;"/>
+            <input name="vote5" type="image" role="submit" src="{{ STATIC_PREFIX }}rating0.png" style="margin:-2px;"/>
+            -->
+            <span  style="color: #b5b5b5; font-style: italic; margin-left: 5px;">
+                (
+                <img src="{{ STATIC_PREFIX }}voted.png" style="margin: -2px;">
+                {{ company.voted }}
+                )
+            </span>
+            </div>
+            <span id="has_voted" style="margin-left: 10px; color: red;">
+                Вы уже давали оценку данной фирме!
+            </span>
+            <address>
+                {% for address in company.address_set.all %}
+                    <h2 style="margin-top: 0px; margin-bottom: 0px;"><small>{{ address }}</small></h2>
+                {% endfor %}
+            </address>
+            <br>
             <div style="margin: 50px;">
                 <p>{{ company.description|safe }}</p>
                 <p> {{ company.on_map|safe }}</p>
-             </div>
+            </div>
         </div>
+    </div>
 {% endblock %}

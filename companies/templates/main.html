@@ -1,46 +1,63 @@
 {% extends 'base.html' %}
 
-{% block leftside %}
-<div class="span3">
-    <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-            {% for category in categories %}
-                <li class="nav-header">{{ category.name }}</li>
-                {% for subcat in category.subcategory_set.all %}
-                    <li {% if subcat == active_category %} class="active" {% endif %}>
-                        <a href="/subcat/{{subcat.id }}">{{ subcat.name }}</a>
-                    </li>
-                {% endfor %}
-            {% endfor %}
+{% block meta_content %}
+    <meta name="keywords" content="litis литис літіс Харьков предприятия фирмы">
+{% endblock %}
 
-        </ul>
+{% block leftside %}
+    <div class="span3 leftside hidden-phone" >
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                {% for category in categories %}
+                    <li class="nav-header row" style="font-size: x-large; line-height: 0px;">
+                        {% if category == categories|first %}
+                            <img src="{{ STATIC_PREFIX }}goods.png" width="25px" style="margin-right: 5%;"/>
+                        {% else %}
+                            <img src="{{ STATIC_PREFIX }}other.png" width="25px" style="margin-right: 5%;"/>
+                        {% endif %}
+                        {{ category.name }}
+                    </li>
+                    {% for subcat in category.subcategory_set.all %}
+                        <li {% if subcat == active_category %} class="active" {% endif %}>
+                            <a href="{% url 'subcat_list' subcat.slug %}">{{ subcat.name }}</a>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{% url 'add_company' %}" class="btn btn-large btn-primary" href="">
+            Добавить компанию в каталог Litis
+        </a>
     </div>
-</div>
 {% endblock %}
 
 {% block companies %}
+    {% if page %}
+        <h3> {{ page.title }}</h3>
+        {{ page.page|safe }}
+    {% endif %}
     {% for company in companies %}
-        <div class="row well">
-
-                    <div class="span3">
-                        {% if company.image %}
-                             <div class="thumbnail" style="width: 200px;">
-                                 <img src="{{ company.image.url }}">
-                             </div>
-                        {% else %}
-                             <div class="thumbnail" style="height: 120px; width: 200px;">
-                                <img src="{{ MEDIA_URL }}/logo/nophoto.png">
-                             </div>
-                        {% endif %}
+        {% if company.accepted == True %}
+        <div class="row company-block">
+            <div class="span3" style="padding-left: 1%; ">
+                {% if company.image %}
+                    <div class="thumbnail" style="width: 200px;">
+                        <a href="{% url 'company' company.slug %}"><img src="{{ company.image.url }}"></a>
                     </div>
-                    <div class="span6">
-                        <h2>{{ company.name }}</h2>
-                        <p> <h5>{{ company.address }} </h5>
-
-                        <p>{{ company.description|truncatewords:10|safe }}</p>
-                        <p><a class="btn" href="/company/{{ company.id }}">Подробнее...</a></p>
+                {% else %}
+                    <div class="thumbnail" style="height: 120px; width: 200px;">
+                        <a href="{% url 'company' company.slug %}"><img src="{{ MEDIA_URL }}/logo/nophoto.png"></a>
                     </div>
-
+                {% endif %}
+            </div>
+            <div class="span4">
+                <div class="lead">{{ company.name }}</div>
+                <p> <h5>{{ company.address_set.all|first }} </h5>
+                <p>{{ company.description|truncatewords:10|safe }}</p>
+                <span style="font-style: normal; text-align: left;"><a class="btn" href="{% url 'company' company.slug %}">Подробнее...</a></span>
+            </div>
         </div>
+        <hr />
+        {% endif %}
     {% endfor %}
 {% endblock %}
